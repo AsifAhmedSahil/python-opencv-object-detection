@@ -1,5 +1,6 @@
 from pydoc import classname
 import cv2
+import numpy as np
 
 # openCv DNN
 net =cv2.dnn.readNet("dnn_model/yolov4-tiny.weights","dnn_model/yolov4-tiny.cfg")
@@ -25,6 +26,7 @@ cap.set(cv2.CAP_PROP_FRAME_HEIGHT,720)
 def click_button(event, x,y,flags,params):
     if event == cv2.EVENT_LBUTTONDOWN:
         print (x,y)
+        # polygon = np.array([[(20,20),(220,20),(220,70),(20,70)]]) 
 
 # create window
 cv2.namedWindow("Frame")
@@ -45,14 +47,13 @@ while True:
         
         cv2.rectangle(frame,(x,y), (x+w , y+h), (200,0,50), 3)
         
+    # create buttons
+    # cv2.rectangle(frame,(20,20),(150,70),(0,0,200),-1)
+    polygon = np.array([[(20,20),(220,20),(220,70),(20,70)]]) 
+    cv2.fillPoly(frame,polygon,(0,0,200))
+    cv2.putText(frame, "Person",(30,60),cv2.FONT_HERSHEY_PLAIN,3,(255,255,255),3)
+    
         
-    
-    
-    print("class ids" ,class_ids)
-    print('scores',scores)
-    print("bboxes",bboxes)
-    
-    
 
     cv2.imshow("Frame_Sahil" , frame)
 
